@@ -7,3 +7,4 @@ long_description 'Installs/Configures Jenkins for use in the Neos/Flow team on c
 version          '0.1.0'
 depends          'jenkins', '~> 2.1.2'
 depends          'nginx', '~> 2.7.4'
+depends          'ssl_certificates'

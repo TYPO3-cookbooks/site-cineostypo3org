@@ -1,0 +1,34 @@
+server {
+    listen [::]:80;
+    server_name <%= node['site-cineostypo3org']['hostname'] %>;
+    rewrite ^ https://$server_name$request_uri? permanent;
+}
+
+server {
+    listen [::]:443;
+
+    ssl on;
+    ssl_certificate <%= @ssl_certfile %>;
+    ssl_certificate_key  <%= @ssl_keyfile %>;
+
+    server_name <%= node['site-cineostypo3org']['hostname'] %>;
+    ## Access and error logs.
+    access_log /var/log/nginx/access-<%= node['site-cineostypo3org']['hostname'] %>.log;
+    error_log /var/log/nginx/error-<%= node['site-cineostypo3org']['hostname'] %>.log;
+
+    # prevent click-jacking http://forge.typo3.org/issues/54837
+    add_header X-Frame-Options SAMEORIGIN;
+
+	location / {
+		proxy_set_header Host $http_host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-Proto https;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_redirect http:// https://;
+
+		add_header Pragma "no-cache";
+
+		proxy_pass http://localhost:8080;
+	}
+
+} # server
