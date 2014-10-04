@@ -61,9 +61,10 @@ end
 %w{
 org.jenkinsci.plugins.favicon.FaviconPageDecorator.xml
 }.each do | jenkins_config_template |
-template "/var/lib/jenkins/#{jenkins_config_template}" do
-  source "jenkins-config/#{jenkins_config_template}"
-  owner 'jenkins'
-  group 'jenkins'
-  notifies :restart, 'service[jenkins]'
+  template "/var/lib/jenkins/#{jenkins_config_template}" do
+    source "jenkins-config/#{jenkins_config_template}"
+    owner 'jenkins'
+    group 'jenkins'
+    notifies :restart, 'service[jenkins]'
+  end
 end
