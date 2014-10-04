@@ -15,3 +15,6 @@ suites:
     attributes:
       site-cineostypo3org:
         ssl_certificate: wildcard.vagrant
+    driver_config:
+      network:
+      - ["private_network", {ip: "192.168.42.42"}]
