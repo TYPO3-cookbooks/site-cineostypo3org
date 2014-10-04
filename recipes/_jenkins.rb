@@ -28,8 +28,6 @@ measurement-plots
     notifies :restart, 'service[jenkins]'
   end
 end
-  
-#TODO: favicon plugin
 
 jenkins_plugin 'subversion' do
   action :disable
@@ -46,3 +44,14 @@ jenkins_plugin 'jenkins-jira-plugin' do
   notifies :restart, 'service[jenkins]'
 end
 
+#favicon plugin compiled by Jacob Floyd from:
+# https://github.com/buzztaiki/jenkins-favicon-plugin
+jenkins_plugin 'favicon' do
+  source "https://github.com/cognifloyd/jenkins-favicon-plugin/blob/master/target/favicon.hpi?raw=true"
+  notifies :restart, 'service[jenkins]'
+end
+
+#copy the favicon for jenkins
+cookbook_file "/var/lib/jenkins/userContent/typo3-and-jenkins.png" do
+  source "typo3-and-jenkins.png"
+end
