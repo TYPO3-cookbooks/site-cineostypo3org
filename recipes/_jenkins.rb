@@ -52,6 +52,18 @@ jenkins_plugin 'favicon' do
 end
 
 #copy the favicon for jenkins
-cookbook_file "/var/lib/jenkins/userContent/typo3-and-jenkins.png" do
-  source "typo3-and-jenkins.png"
+cookbook_file "/var/lib/jenkins/userContent/#{node['site-cineostypo3org']['favicon']}" do
+  source node['site-cineostypo3org']['favicon']
+  owner 'jenkins'
+  group 'jenkins'
+end
+
+%w{
+org.jenkinsci.plugins.favicon.FaviconPageDecorator.xml
+}.each do | jenkins_config_template |
+template "/var/lib/jenkins/#{jenkins_config_template}" do
+  source "jenkins-config/#{jenkins_config_template}"
+  owner 'jenkins'
+  group 'jenkins'
+  notifies :restart, 'service[jenkins]'
 end

@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.favicon.FaviconPageDecorator plugin="favicon@1.0-SNAPSHOT">
+  <faviconPath>/var/lib/jenkins/userContent/<%= node['site-cineostypo3org']['favicon']%></faviconPath>
+</org.jenkinsci.plugins.favicon.FaviconPageDecorator>
