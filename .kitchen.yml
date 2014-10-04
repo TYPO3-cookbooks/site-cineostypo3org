@@ -13,3 +13,5 @@ suites:
     run_list:
       - recipe[site-cineostypo3org::default]
     attributes:
+      site-cineostypo3org:
+        ssl_certificate: wildcard.vagrant
