@@ -1,11 +1,15 @@
 server {
-    listen [::]:80;
+	#openvz doesn't have ipv6
+    #listen [::]:80;
+    listen 80;
     server_name <%= node['site-cineostypo3org']['hostname'] %>;
     rewrite ^ https://$server_name$request_uri? permanent;
 }
 
 server {
-    listen [::]:443;
+	#openvz doesn't have ipv6
+    #listen [::]:443;
+    listen 443;
 
     ssl on;
     ssl_certificate <%= @ssl_certfile %>;
